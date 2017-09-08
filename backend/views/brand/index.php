@@ -16,7 +16,7 @@
             <td><?=$Brand->id?></td>
             <td><?=$Brand->name?></td>
             <td><?=$Brand->intro?></td>
-            <td><img src="<?=$Brand->logo?>" class="img-circle" width="80px"></td>
+            <td><?=\yii\bootstrap\Html::img($Brand->logo,['height'=>30])?></td>
             <td><?=$Brand->sort?></td>
             <td><?=$Brand->status==0?'隐藏':'正常'?>
             </td>
