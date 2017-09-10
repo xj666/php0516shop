@@ -22,6 +22,7 @@
             </td>
             <td>
                 <a href="<?=\yii\helpers\Url::to(['brand/edit','id'=>$Brand->id])?>" class="btn btn-danger btn-group-sm">修改</a>
+
                 <a href="<?=\yii\helpers\Url::to(['brand/delete','id'=>$Brand->id])?>" class="btn btn-danger btn-group-sm">删除</a>
             </td>
 

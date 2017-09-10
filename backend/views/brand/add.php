@@ -4,7 +4,7 @@ use yii\web\JsExpression;
 $form = \yii\bootstrap\ActiveForm::begin();
 echo $form->field($model,'name')->textInput();
 echo $form->field($model,'intro')->textarea();
-echo \yii\bootstrap\Html::img($model->logo,['class'=>'img-circle','width'=>'70px']);
+//echo \yii\bootstrap\Html::img($model->logo,['class'=>'img-circle','width'=>'70px']);
 //echo $form->field($model,'file')->fileInput();
 echo $form->field($model,'logo')->hiddenInput();
 echo \yii\bootstrap\Html::fileInput('test', NULL, ['id' => 'test']);
