@@ -85,10 +85,10 @@ class GoodsCategory extends \yii\db\ActiveRecord
         ];
     }
 
-    public static function find()
+   /* public static function find()
     {
         return new CategoryQuery(get_called_class());
-    }
+    }*/
 //    public function getParents(){
 //        return ;
 //    }
