@@ -7,7 +7,7 @@
     </ul>
 </nav>
 <table class="table table-bordered table-responsive">
-    <tr class="success">
+    <tr >
         <th>ID</th>
         <th>用户名</th>
         <th>邮箱</th>

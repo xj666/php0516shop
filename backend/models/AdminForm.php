@@ -41,6 +41,8 @@ class AdminForm extends Model
                 \Yii::$app->user->login($user);
                 //$ip= $_SERVER["REMOTE_ADDR"];
                 $ip =\Yii::$app->request->userIP;
+                $time = time();
+                $user->last_login_time=$time;
                 $user -> last_login_ip=$ip;
                 $user->save(false);
                 return true;

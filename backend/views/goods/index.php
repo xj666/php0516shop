@@ -25,7 +25,7 @@
     </div><button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>搜索</button></form>
 <!-- -->
 <table class="table table-bordered table-responsive">
-    <tr class="success">
+    <tr >
         <th>ID</th>
         <th>货号</th>
         <th>名称</th>

@@ -7,7 +7,7 @@
     </ul>
 </nav>
 <table class="table table-bordered table-responsive">
-    <tr class="success">
+    <tr >
         <th>ID</th>
         <th>文章名称</th>
         <th>文章简介</th>

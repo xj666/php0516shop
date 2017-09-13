@@ -7,7 +7,7 @@
     </ul>
 </nav>
 <table class="table table-bordered table-responsive">
-    <tr class="success">
+    <tr >
         <th>ID</th>
         <th>商品分类名称</th>
         <th>上级分类</th>
