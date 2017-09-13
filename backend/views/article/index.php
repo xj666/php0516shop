@@ -3,7 +3,7 @@
 ?>
 <nav aria-label="...">
     <ul class="pager">
-        <li class="previous"><a href="<?=\yii\helpers\Url::to(['article/add'])?>"><span aria-hidden="true">&larr;</span> 添加文章</a></li>
+        <li class="previous"><a href="<?=\yii\helpers\Url::to(['article/add'])?>"><span class="glyphicon glyphicon-plus-sign">添加文章</span></li>
     </ul>
 </nav>
 <table class="table table-bordered table-responsive active text-info table-hover">
@@ -27,9 +27,9 @@
             <td><?=$model->status?'正常':'隐藏'?></td>
             <td><?=date('Y-m-d H:i:s',$model->create_time)?></td>
             <td>
-                <a href="<?=\yii\helpers\Url::to(['article-detail/index','id'=>$model->id])?>" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></a>
-                <a href="<?=\yii\helpers\Url::to(['article/edit','id'=>$model->id])?>" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a href="javascript:;" class="btn btn-default del_btn"><span class="glyphicon glyphicon-trash"></span></a>
+                <a href="<?=\yii\helpers\Url::to(['article-detail/index','id'=>$model->id])?>" class="btn btn-default"><span class="glyphicon glyphicon-eye-open">查看</span></a>
+                <a href="<?=\yii\helpers\Url::to(['article/edit','id'=>$model->id])?>" class="btn btn-default"><span class="glyphicon glyphicon-pencil">编辑</span></a>
+                <a href="javascript:;" class="btn btn-default del_btn"><span class="glyphicon glyphicon-trash">删除</span></a>
             </td>
         </tr>
     <?php endforeach;?>

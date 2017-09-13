@@ -3,7 +3,7 @@
 ?>
 <nav aria-label="...">
     <ul class="pager">
-        <li class="previous"><a href="<?=\yii\helpers\Url::to(['goods-category/add'])?>"> 添加商品分类&nbsp;<span aria-hidden="true">&rarr;</span> </a></li>
+        <li class="previous"><a href="<?=\yii\helpers\Url::to(['goods-category/add'])?>"><span class="glyphicon glyphicon-plus-sign">添加分类</span></a></li>
     </ul>
 </nav>
 <table class="table table-bordered table-responsive active text-info table-hover">
@@ -18,13 +18,13 @@
         <tr data-id="<?=$model->id?>">
             <td><?=$model->id?></td>
             <td><?php
-                echo str_repeat('==',$model->depth).$model->name;
+                echo str_repeat('--',$model->depth).$model->name;
                 ?></td>
             <td><?=$model->parent_id?></td>
             <td><?=$model->intro?></td>
             <td>
-                <a href="<?=\yii\helpers\Url::to(['goods-category/edit','id'=>$model->id])?>" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a href="<?=\yii\helpers\Url::to(['goods-category/del','id'=>$model->id])?>" class="btn btn-default del_btn"><span class="glyphicon glyphicon-trash"></span></a>
+                <a href="<?=\yii\helpers\Url::to(['goods-category/edit','id'=>$model->id])?>" class="btn btn-default"><span class="glyphicon glyphicon-pencil">编辑</span></a>
+                <a href="<?=\yii\helpers\Url::to(['goods-category/del','id'=>$model->id])?>" class="btn btn-default del_btn"><span class="glyphicon glyphicon-trash">删除</span></a>
             </td>
         </tr>
     <?php endforeach;?>

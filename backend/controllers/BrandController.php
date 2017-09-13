@@ -13,7 +13,7 @@ class BrandController extends \yii\web\Controller
         $query = Brand::find();
         $pager = new Pagination([
             'totalCount'=>$query->where(['>','status',-1])->count(),
-            'defaultPageSize'=>3
+            'defaultPageSize'=>4
         ]);
        // $models = $query->limit($pager->limit)->offset($pager->offset)->all();
        // $models = $query->limit($pager->limit)->offset($pager->offset)->orderBy($sort->orders)->where(['>','status',-1])->all();

@@ -18,7 +18,7 @@ class ArticleController extends \yii\web\Controller
         $pager=new Pagination([
            'totalCount'=>$query->where(['>','status',-1])->count(),
             //每页多少条
-            'defaultPageSize'=>2,
+            'defaultPageSize'=>4,
         ]);
         //查询计算页面数据
         $models=$query->where(['>','status',-1])->offset($pager->offset)->limit($pager->limit)->all();

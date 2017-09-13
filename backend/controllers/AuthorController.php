@@ -15,7 +15,7 @@ class AuthorController extends Controller{
         //实例化分页工具条
         $pager=new Pagination([
             'totalCount'=>$query->count(),
-            'defaultPageSize'=>2,
+            'defaultPageSize'=>4,
         ]);
         $authors=$query->limit($pager->limit)->offset($pager->offset)->all();
         //显示页面

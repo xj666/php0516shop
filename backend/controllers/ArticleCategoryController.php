@@ -15,7 +15,7 @@ class ArticleCategoryController extends \yii\web\Controller
             //总页数
             'totalCount'=>$query->count(),
             //每页多少条
-            'defaultPageSize'=>2,
+            'defaultPageSize'=>4,
         ]);
         //查询计算页面后的数据
         $model=$query->where(['>','status','-1'])->offset($pager->offset)->limit($pager->limit)->all();

@@ -9,10 +9,11 @@
 </style>
 <nav aria-label="...">
     <ul class="pager">
-        <li class="previous"><a href="<?=\yii\helpers\Url::to(['goods/add'])?>"> 添加商品&nbsp;<span aria-hidden="true">&rarr;</span> </a></li>
+        <li class="previous"><a href="<?=\yii\helpers\Url::to(['goods/add'])?>"><span class="glyphicon glyphicon-plus-sign">添加商品</span></li>
     </ul>
 </nav>
 <form id="w0" class="form-inline" action="/goods/index" method="get" role="form"><div class="form-group field-goodssearchform-name">
+
         <input type="text" id="goodssearchform-name" class="form-control" name="GoodsSearchForm[name]" placeholder="商品名">
     </div><div class="form-group field-goodssearchform-sn has-success">
         <input type="text" id="goodssearchform-sn" class="form-control" name="GoodsSearchForm[sn]" placeholder="货号" aria-invalid="false">
