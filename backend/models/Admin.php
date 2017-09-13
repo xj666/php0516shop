@@ -41,6 +41,7 @@ class Admin extends \yii\db\ActiveRecord
             [['username'], 'unique'],
             [['password_reset_token'], 'unique'],
             [['email'], 'unique'],
+            ['username', 'exist'],
         ];
     }
 
