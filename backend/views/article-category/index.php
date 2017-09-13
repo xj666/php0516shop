@@ -1,7 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 ?>
-<a href="<?=\yii\helpers\Url::to(['article-category/add'])?>" class="btn btn-danger">添加品牌</a>
+<a href="<?=\yii\helpers\Url::to(['article-category/add'])?>" class="btn btn-danger">添加分类</a>
 
 <table class="table table-bordered table-responsive active text-info table-hover">
     <tr>
