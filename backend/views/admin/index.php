@@ -6,7 +6,7 @@
         <li class="previous"><a href="<?=\yii\helpers\Url::to(['admin/add'])?>"><span class="glyphicon glyphicon-plus-sign">添加管理</span></a></li>
     </ul>
 </nav>
-<table class="table table-bordered table-responsive active text-info table-hover">
+<table class="table table-bordered table-responsive">
     <tr class="success">
         <th>ID</th>
         <th>用户名</th>

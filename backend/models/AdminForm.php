@@ -39,6 +39,10 @@ class AdminForm extends Model
         if ($user) {
             if (\Yii::$app->security->validatePassword($this->password, $user->password_hash)) {
                 \Yii::$app->user->login($user);
+                //$ip= $_SERVER["REMOTE_ADDR"];
+                $ip =\Yii::$app->request->userIP;
+                $user -> last_login_ip=$ip;
+                $user->save(false);
                 return true;
             }
             $this->addError('password', '密码不正确');

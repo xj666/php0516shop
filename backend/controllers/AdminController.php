@@ -40,6 +40,7 @@ class AdminController extends \yii\web\Controller
         if($request->isPost){
             $model->load($request->post());
             if($model->validate()){
+                $model->password_hash=\Yii::$app->security->generatePasswordHash($model->password_hash);
                 $model->save();
                 return $this->redirect(['admin/index']);
 
@@ -68,6 +69,7 @@ class AdminController extends \yii\web\Controller
         //显示登录表单
        $model = new AdminForm();
         $request = \Yii::$app->request;
+        //var_dump($ip);exit();
         if ($request->isPost) {
             $model->load($request->post());
             if ($model->validate()) {
@@ -78,8 +80,6 @@ class AdminController extends \yii\web\Controller
                 }
             }
         }
-
         return $this->render('login', ['model' => $model]);
-
     }
 }

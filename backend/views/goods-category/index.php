@@ -6,7 +6,7 @@
         <li class="previous"><a href="<?=\yii\helpers\Url::to(['goods-category/add'])?>"><span class="glyphicon glyphicon-plus-sign">添加分类</span></a></li>
     </ul>
 </nav>
-<table class="table table-bordered table-responsive active text-info table-hover">
+<table class="table table-bordered table-responsive">
     <tr class="success">
         <th>ID</th>
         <th>商品分类名称</th>

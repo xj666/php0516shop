@@ -3,7 +3,7 @@
 ?>
 <a href="<?=\yii\helpers\Url::to(['article-category/add'])?>" class="btn btn-danger">添加分类</a>
 
-<table class="table table-bordered table-responsive active text-info table-hover">
+<table class="table table-bordered table-responsive">
     <tr>
         <th>ID</th>
         <th>文章名称</th>

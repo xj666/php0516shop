@@ -43,8 +43,7 @@ AppAsset::register($this);
         ['label' => '文章管理', 'url' => ['/article/index']],
 
         ['label' => '商品管理', 'url' => ['/goods/index']],
-
-        ['label' => '商品分类', 'url' => ['/goods-category/index']],
+        ['label' => '商品分类', 'url' => ['/goods/index']],
 
         ['label' => '用户列表', 'url' => ['/admin/index']],
 
@@ -54,7 +53,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => '登录', 'url' => ['/admin/login']];
     } else {
         $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
+            . Html::beginForm(['/admin/logout'], 'post')
             . Html::submitButton(
                 '注销 (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']

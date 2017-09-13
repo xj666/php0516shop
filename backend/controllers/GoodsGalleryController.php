@@ -8,7 +8,6 @@ use yii\web\NotFoundHttpException;
 
 class GoodsGalleryController extends \yii\web\Controller
 {
-
     public function actionGallery($id){
         //判断该商品是否存在
         $goods=Goods::findOne(['id'=>$id]);
@@ -56,10 +55,6 @@ class GoodsGalleryController extends \yii\web\Controller
                 'afterValidate' => function (UploadAction $action) {},
                 'beforeSave' => function (UploadAction $action) {},
                 'afterSave' => function (UploadAction $action) {
-//                    $action->output['fileUrl'] = $action->getWebUrl();//获取图片路径
-//                    $action->getFilename(); // "image/yyyymmddtimerand.jpg"
-//                    $action->getWebUrl(); //  "baseUrl + filename, /upload/image/yyyymmddtimerand.jpg"
-//                    $action->getSavePath(); // "/var/www/htdocs/upload/image/yyyymmddtimerand.jpg"绝对路径
                     $model=new GoodsGallery();
                     $model->goods_id=\Yii::$app->request->post('goods_id');
                     $model->path = $action->getWebUrl();
