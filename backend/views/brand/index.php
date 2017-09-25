@@ -12,7 +12,7 @@
         <th>操作</th>
     </tr>
     <?php foreach ($Brands as $Brand):?>
-        <tr>
+        <tr  data-id="<?=$Brand->id?>">
             <td><?=$Brand->id?></td>
             <td><?=$Brand->name?></td>
             <td><?=$Brand->intro?></td>
@@ -22,8 +22,7 @@
             </td>
             <td>
                 <a href="<?=\yii\helpers\Url::to(['brand/edit','id'=>$Brand->id])?>" class="btn btn-danger btn-group-sm">修改</a>
-
-                <a href="<?=\yii\helpers\Url::to(['brand/delete','id'=>$Brand->id])?>" class="btn btn-danger btn-group-sm">删除</a>
+                <a href="javascript:;" class="btn btn-default del_btn"><span class="glyphicon glyphicon-trash">删除</span></a>
             </td>
 
         </tr>
@@ -34,7 +33,24 @@
 //分页工具条
 echo \yii\widgets\LinkPager::widget([
     'pagination'=>$pager,
-//    'nextPageLabel'=>'下一页',
-//    'prevPageLabel'=>'上一页'
 ]);
-?>
+$del_url=\yii\helpers\Url::to(['brand/delete']);
+$this->registerJs(new \yii\web\JsExpression(
+    <<<JS
+    $('.del_btn').click(function() {
+      if(confirm('确定要删除吗?')){
+          var tr=$(this).closest('tr');
+          var id=tr.attr('data-id');
+          $.post("{$del_url}",{id:id},function(data) {
+            if(data=='success'){
+                  tr.fadeToggle();
+                  alert('删除成功');
+            }else {
+                alert('删除失败');
+            }
+          })
+      }
+    })
+JS
+
+));?>

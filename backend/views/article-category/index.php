@@ -13,7 +13,7 @@
         <th>操作</th>
     </tr>
     <?php foreach ($models as $model):?>
-        <tr>
+        <tr data-id="<?=$model->id?>">
             <td><?=$model->id?></td>
             <td><?=$model->name?></td>
             <td><?=$model->intro?></td>
@@ -21,7 +21,7 @@
             <td><?=$model->status?'正常':'隐藏'?></td>
             <td>
                 <a href="<?=\yii\helpers\Url::to(['article-category/edit','id'=>$model->id])?>" class="btn btn-danger btn-group-sm">修改</a>
-                <a href="<?=\yii\helpers\Url::to(['article-category/del','id'=>$model->id])?>" class="btn btn-danger btn-group-sm">删除</a>
+                <a href="javascript:;" class="btn btn-default del_btn"><span class="glyphicon glyphicon-trash">删除</span></a>
             </td>
         </tr>
     <?php endforeach;?>
@@ -33,4 +33,25 @@ echo \yii\widgets\LinkPager::widget([
 //    'nextPageLabel'=>'下一页',
 //    'prevPageLabel'=>'上一页'
 ]);
+$del_url=\yii\helpers\Url::to(['article-category/delete']);
+$this->registerJs(new \yii\web\JsExpression(
+    <<<JS
+    $('.del_btn').click(function() {
+      if(confirm('确定要删除吗?')){
+          var tr=$(this).closest('tr');
+          var id=tr.attr('data-id');
+          $.post("{$del_url}",{id:id},function(data) {
+            if(data=='success'){
+                  tr.fadeToggle();
+                  alert('删除成功');
+            }else {
+                alert('删除失败');
+            }
+          })
+      }
+    })
+JS
+
+));
+
 ?>

@@ -2,8 +2,10 @@
 
 namespace backend\controllers;
 
+use backend\filters\RbacFilters;
 use backend\models\ArticleCategory;
 use yii\data\Pagination;
+use yii\filters\AccessControl;
 
 class ArticleCategoryController extends \yii\web\Controller
 {
@@ -53,11 +55,24 @@ class ArticleCategoryController extends \yii\web\Controller
         }
         return $this->render('add',['model'=>$model]);
     }
-    public function actionDel($id){
-        $model=Brand::findOne(['id'=>$id]);
-        $model->status=-1;
-        $model->save();
-        \Yii::$app->session->setFlash('success','删除成功!');
-        return $this->redirect(['brand/index']);
+    public function actionDelete(){
+        $id=\Yii::$app->request->post('id');
+        $model = ArticleCategory::findOne(['id' => $id]);
+        if($model) {
+            $model->status = -1;
+            $model->save(false);
+            return 'success';
+            return $this->redirect(['article-category/index']);
+        }
+        return 'fail';
+    }
+    public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilters::className(),
+                'except'=>['login','logout','error','captcha','editpsd'],
+            ]
+        ];
     }
 }

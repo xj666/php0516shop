@@ -2,10 +2,12 @@
 
 namespace backend\controllers;
 
+use backend\filters\RbacFilters;
 use backend\models\Article;
 use backend\models\ArticleCategory;
 use backend\models\ArticleDetail;
 use yii\data\Pagination;
+use yii\filters\AccessControl;
 
 
 class ArticleController extends \yii\web\Controller
@@ -68,16 +70,18 @@ class ArticleController extends \yii\web\Controller
         return $this->render('add',['model_article'=>$model_article,'model_detail'=>$model_detail,'model_categorys'=>$model_categorys]);
     }
     //删除
-    public function actionDel(){
-        $id=\Yii::$app->request->post();
-        $model=Article::findOne(['id'=>$id]);
-        if($model){
-            $model->status=-1;
+    public function actionDelete(){
+        $id=\Yii::$app->request->post('id');
+        $model = Article::findOne(['id' => $id]);
+        if($model) {
+            $model->status = -1;
             $model->save(false);
             return 'success';
+            return $this->redirect(['article/index']);
         }
         return 'fail';
     }
+
     public function actions()
     {
         return [
@@ -89,6 +93,31 @@ class ArticleController extends \yii\web\Controller
                     "imageRoot" => \Yii::getAlias("@webroot"),
                 ]
             ],
+        ];
+    }
+   /* public function behaviors()
+    {
+        return[
+            'acf'=>[
+                'class'=>AccessControl::className(),
+                'only'=>['login'],
+                'rules'=>[
+                    [
+                        'allow'=>true,
+                        'actions'=>['add','delete','edit'],
+                        'roles'=>['@'],
+                    ]
+                ]
+            ]
+        ];
+    }*/
+    public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilters::className(),
+                'except'=>['login','logout','error','captcha','editpsd'],
+            ]
         ];
     }
 }

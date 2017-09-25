@@ -29,29 +29,18 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => '谢氏商城后台管理',
+        'brandLabel' => 'My shop',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => '品牌管理', 'url' => ['/brand/index']],
-
-        ['label' => '文章分类管理', 'url' => ['/article-category/index']],
-
-        ['label' => '文章管理', 'url' => ['/article/index']],
-
-        ['label' => '商品管理', 'url' => ['/goods/index']],
-        ['label' => '商品分类', 'url' => ['/goods/index']],
-
-        ['label' => '用户列表', 'url' => ['/admin/index']],
-
-    ];
 
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => '登录', 'url' => ['/admin/login']];
     } else {
+        $menuItems=\backend\models\Munu::getMunus();
+        $menuItems[] = ['label' => '修改密码', 'url' => ['/admin/editpsd']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/admin/logout'], 'post')
             . Html::submitButton(
@@ -76,12 +65,15 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
+
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
+
 <?php $this->endBody() ?>
 </body>
 </html>

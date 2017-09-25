@@ -1,6 +1,7 @@
 <?php
 
 namespace backend\controllers;
+use backend\filters\RbacFilters;
 use backend\models\Brand;
 use backend\models\Goods;
 use backend\models\GoodsCategory;
@@ -11,6 +12,8 @@ use backend\models\GoodsSearchForm;
 use yii\data\Pagination;
 use flyok666\uploadifive\UploadAction;
 use flyok666\qiniu\Qiniu;
+use yii\filters\AccessControl;
+
 class GoodsController extends \yii\web\Controller
 {
     public function actionIndex()
@@ -163,6 +166,15 @@ class GoodsController extends \yii\web\Controller
                     "imageRoot" => \Yii::getAlias("@webroot"),
                 ]
             ],
+        ];
+    }
+    public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilters::className(),
+                'except'=>['login','logout','error','captcha','editpsd'],
+            ]
         ];
     }
 }

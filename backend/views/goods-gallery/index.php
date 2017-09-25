@@ -74,6 +74,5 @@ $this->registerJs(new JsExpression(
         }
     });
 JS
-
 ))
 ?>

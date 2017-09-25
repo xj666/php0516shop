@@ -9,19 +9,19 @@
 </style>
 <nav aria-label="...">
     <ul class="pager">
-        <li class="previous"><a href="<?=\yii\helpers\Url::to(['goods/add'])?>"><span class="glyphicon glyphicon-plus-sign">添加商品</span></li>
+        <li class="previous"><a href="<?=\yii\helpers\Url::to(['goods/add'])?>"><span class="glyphicon glyphicon-plus-sign">添加商品</span></a></li>
     </ul>
 </nav>
 <form id="w0" class="form-inline" action="/goods/index" method="get" role="form"><div class="form-group field-goodssearchform-name">
 
-        <input type="text" id="goodssearchform-name" class="form-control" name="GoodsSearchForm[name]" placeholder="商品名">
+        <input type="text"  class="form-control" name="GoodsSearchForm[name]" placeholder="商品名">
     </div><div class="form-group field-goodssearchform-sn has-success">
-        <input type="text" id="goodssearchform-sn" class="form-control" name="GoodsSearchForm[sn]" placeholder="货号" aria-invalid="false">
+        <input type="text"  class="form-control" name="GoodsSearchForm[sn]" placeholder="货号" aria-invalid="false">
     </div><div class="form-group field-goodssearchform-minprice">
-        <input type="text" id="goodssearchform-minprice" class="form-control" name="GoodsSearchForm[minPrice]" placeholder="￥">
+        <input type="text"  class="form-control" name="GoodsSearchForm[minPrice]" placeholder="￥">
     </div><div class="form-group field-goodssearchform-maxprice">
         <label class="sr-only" for="goodssearchform-maxprice">-</label>
-        <input type="text" id="goodssearchform-maxprice" class="form-control" name="GoodsSearchForm[maxPrice]" placeholder="￥">
+        <input type="text"  class="form-control" name="GoodsSearchForm[maxPrice]" placeholder="￥">
     </div><button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>搜索</button></form>
 <!-- -->
 <table class="table table-bordered table-responsive">

@@ -40,7 +40,7 @@ echo \yii\widgets\LinkPager::widget([
     'pagination'=>$pager,
 ]);
 //注册js代码
-$del_url=\yii\helpers\Url::to(['article-category/del']);
+$del_url=\yii\helpers\Url::to(['article/delete']);
 $this->registerJs(new \yii\web\JsExpression(
     <<<JS
     $('.del_btn').click(function() {

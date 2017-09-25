@@ -1,8 +1,10 @@
 <?php
 namespace frontend\controllers;
 
+use backend\filters\RbacFilters;
 use frontend\models\Author;
 use yii\data\Pagination;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Request;
 use yii\web\UploadedFile;
@@ -85,5 +87,30 @@ class AuthorController extends Controller{
         $model=Author::findOne(['id'=>$id]);
         $model->delete();
         return $this->redirect(['author/index']);
+    }
+    /*public function behaviors()
+    {
+        return[
+            'acf'=>[
+                'class'=>AccessControl::className(),
+                'only'=>['login'],
+                'rules'=>[
+                    [
+                        'allow'=>true,
+                        'actions'=>['add','delete','edit'],
+                        'roles'=>['@'],
+                    ]
+                ]
+            ]
+        ];
+    }*/
+    public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilters::className(),
+                'except'=>['login','logout','error','captcha','editpsd'],
+            ]
+        ];
     }
 }

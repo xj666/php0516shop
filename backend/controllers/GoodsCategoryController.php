@@ -2,8 +2,10 @@
 
 namespace backend\controllers;
 
+use backend\filters\RbacFilters;
 use backend\models\GoodsCategory;
 use yii\data\Pagination;
+use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
 
 class GoodsCategoryController extends \yii\web\Controller
@@ -107,5 +109,30 @@ class GoodsCategoryController extends \yii\web\Controller
             ]
         ];
     }
-
+/*
+    public function behaviors()
+    {
+        return[
+            'acf'=>[
+                'class'=>AccessControl::className(),
+                'only'=>['index','add','delete','edit'],
+                'rules'=>[
+                    [
+                        'allow'=>true,
+                        'actions'=>['add','delete','edit'],
+                        'roles'=>['@'],//@代表只有登录用户才能执行的操作
+                    ]
+                ]
+            ]
+        ];
+    }*/
+    public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilters::className(),
+                'except'=>['login','logout','error','captcha','editpsd'],
+            ]
+        ];
+    }
 }

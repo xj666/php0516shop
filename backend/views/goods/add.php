@@ -99,8 +99,7 @@ $this->registerJs(new JsExpression(
             }
         };
         var zNodes ={$goodsCategories};
-
-            zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+           zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
               //全部展开所有节点
            zTreeObj.expandAll(true);
             //修改时根据当前分类的goods_category_id来选中id
@@ -109,5 +108,4 @@ $this->registerJs(new JsExpression(
             // console.log(node);
             zTreeObj.selectNode(node);
 JS
-
 ));

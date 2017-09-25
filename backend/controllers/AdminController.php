@@ -2,9 +2,15 @@
 
 namespace backend\controllers;
 
+use backend\filters\RbacFilters;
 use backend\models\Admin;
 use backend\models\AdminForm;
+use Codeception\Template\Acceptance;
 use yii\data\Pagination;
+use yii\db\ActiveRecord;
+use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
+
 class AdminController extends \yii\web\Controller
 {
     public function actionIndex()
@@ -20,50 +26,79 @@ class AdminController extends \yii\web\Controller
         return $this->render('index',['models'=>$models,'pager'=>$pager]);
     }
     public function actionAdd(){
-        $model = new Admin();
+        $model = new Admin(['scenario'=>Admin::SCENARIO_ADD]);
+        //$model->scenario = User::SCENARIO_ADD;//指定当前场景为SCENARIO_ADD场景
         $request = \Yii::$app->request;
         if($request->isPost){
             $model->load($request->post());
             if($model->validate()){
-                $model->password_hash=\Yii::$app->security->generatePasswordHash($model->password_hash);
                 $model->save();
                 \Yii::$app->session->setFlash('success','添加成功');
-                return $this->redirect(['admin/index']);
-
+                return $this->redirect(['index']);
             }
+           $auth = \Yii::$app->authManager;
+            if($model->rolesName != null){
+                foreach ($model->rolesName as $role_name){
+                    $role_name = $auth->getRole($role_name);
+                    $auth->assign($role_name,$model->getId());
+                }
+            }
+
         }
+
         return $this->render('add',['model'=>$model]);
     }
-    public function actionEdit($id){
-        $model =Admin::findOne(['id'=>$id]);
+    public function actionEdit($id)
+    {
+        $model = Admin::findOne(['id' => $id]);
+        if ($model == null) {
+            throw new NotFoundHttpException('用户不存在');
+        }
         $request = \Yii::$app->request;
-        if($request->isPost){
+        if ($request->isPost) {
             $model->load($request->post());
-            if($model->validate()){
-                $model->password_hash=\Yii::$app->security->generatePasswordHash($model->password_hash);
-                $model->save();
-                return $this->redirect(['admin/index']);
+            if ($model->validate()) {
+                //修改密码
+                //确认旧密码是否一致
+                if (\Yii::$app->security->validatePassword($model->password, $model->password_hash)) {//密码验证正确
+                    //验证确认密码
+                    if ($model->newpassword == $model->repassword) {//两次密码一致
+                        $model->save();
+                    } else {
+                        //    $model->addError('repassword','两次密码不一致');
+                        throw new NotFoundHttpException('两次密码不一致');
+                    }
+                } else {//密码验证不正确
+                    throw new NotFoundHttpException('密码不正确');
+                }
 
+                \Yii::$app->session->setFlash('success', '修改成功');
+                $this->redirect(['admin/index']);
+            } else {
+                var_dump($model->getErrors());
+                exit;
             }
         }
-        return $this->render('add',['model'=>$model]);
+        //只能修改自己的信息
+        $id = \Yii::$app->user->id;
+        if ($model->id != $id) {
+            throw new NotFoundHttpException('只有管理员才能修改');
+        }
+        $model->password_hash = \Yii::$app->security->passwordHashStrategy;
+        return $this->render('edit', ['model' => $model]);
     }
-    public function actionDelte($id){
-        $model = Admin::findOne($id);
-        $model->delete();
-        return $this->redirect(['admin/index']);
 
+    public function actionDelete(){
+        $id=\Yii::$app->request->post('id');
+        $admin=Admin::findOne(['id'=>$id]);
+        if($admin) {
+            $admin->delete();
+            return 'success';
+            return $this->redirect(['admin/index']);
+        }
+        return 'fail';
     }
-        //1.显示登录表单(使用表单模型,不要用活动记录)
-        //2 表单提交
-        //3 验证用户名和密码
-        //3.1 根据用户名查找用户
-    //$member = User::findOne(['username'=>'zhangsan']);
-        //3.2 对比密码
-    //$user = Yii::$app->user;
-        //4 保存登录标识到session
-    //$user->login($member);
-    //echo '登录成功';
+
   public function actionLogin()
     {
         //显示登录表单
@@ -82,4 +117,22 @@ class AdminController extends \yii\web\Controller
         }
         return $this->render('login', ['model' => $model]);
     }
-}
+    public function actionLogout(){
+       \Yii::$app->user->logout();
+        return $this->redirect(['admin/login']);
+
+    }
+
+   /* public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilters::className(),
+                'except'=>['login','logout','error','captcha','editpsd'],
+            ]
+        ];
+    }*/
+   }
+
+
+

@@ -6,33 +6,28 @@
  * Time: 14:40
  */
 namespace backend\models;
-
 use yii\base\Model;
-
 class AdminForm extends Model
 {
     public $username;
     public $password;
-
+    public $rememberme;
     /* public $code;*/
-
     public function rules()
     {
         return [
-            [['username', 'password'], 'required']
+            [['username', 'password'], 'required'],
+            ['rememberme','integer']
         ];
     }
-
     public function attributeLabels()
     {
         return [
             'username' => '用户名',
             'password_hash' => '密码',
-
+            'rememberme'=>'记住我',
         ];
-
     }
-
     public function login()
     {
         $user = Admin::findOne(['username' => $this->username]);
@@ -45,6 +40,9 @@ class AdminForm extends Model
                 $user->last_login_time=$time;
                 $user -> last_login_ip=$ip;
                 $user->save(false);
+                if($this->rememberme){
+                    return \Yii::$app->user->login($user,7*24*3600);
+                }
                 return true;
             }
             $this->addError('password', '密码不正确');
